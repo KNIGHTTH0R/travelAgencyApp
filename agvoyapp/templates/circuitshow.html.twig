@@ -2,12 +2,11 @@
 {#
   {{ dump(circuit) }}
 #}
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Details for circuit {{ id }}</title>
-</head>
-<body>
+
+{% extends "baseloayout.html.twig" %}
+
+  {% block title}{{ parent()} - Details for circuit {{ id }}{% endblock %}
+{% block body %}
   <h1>{{ circuit.description }}</h1>
 
 	<h2>Détails</h2>
@@ -41,5 +40,4 @@
     <p>Désolé : pas encore de programmations pour ce circuit.</p>
     {% endif %}
 
-</body>
-</html>
+{% endblock %}
