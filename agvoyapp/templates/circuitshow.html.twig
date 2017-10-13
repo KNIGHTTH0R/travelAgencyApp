@@ -3,9 +3,9 @@
   {{ dump(circuit) }}
 #}
 
-{% extends "baseloayout.html.twig" %}
+{% extends "baselayout.html.twig" %}
 
-  {% block title}{{ parent()} - Details for circuit {{ id }}{% endblock %}
+  {% block title %}{{ parent() }} - Details for circuit {{ id }}{% endblock %}
 {% block body %}
   <h1>{{ circuit.description }}</h1>
 
