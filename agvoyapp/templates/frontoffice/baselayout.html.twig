@@ -1,0 +1,22 @@
+{# templates/frontoffice/baselayout.html.twig #}
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Application todos{% endblock %}</title>
+    <nav>
+	<ul>
+		<li>
+			<a href="{{ path('circuitlist') }}">Circuits</a>
+		</li>
+		<li>
+			<a href="{{ path('programmationlist') }}">Programmation</a>
+		</li>
+	</ul>
+    </nav>
+  </head>
+  <body>
+    {% block body %}
+    {% endblock %} {# body #}
+  </body>
+</html>
