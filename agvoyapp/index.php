@@ -60,4 +60,8 @@ $app->get ( '/programmation',
 	}
 )->bind ( 'programmationlist' );
 
+
+//admin routes
+require_once "backoffice.php";
+
 $app->run ();
