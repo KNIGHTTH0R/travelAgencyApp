@@ -30,13 +30,15 @@ $app->get ( '/',
 		$now = new DateTime("now");
 		foreach ($allprogs as $prog) {
 			$datediff=date_diff($prog->getDateDepart(),$now);
-			$datediff->format('%R%m');
-			if ($datediff < 12){
+			$daydiff = $datediff->format('%d');
+			$monthdiff = $datediff->format('%m');
+			if ($daydiff < 15 && $monthdiff < 1){
 				$circuitId=$prog->getCircuit()->getId();
 				$nextcircuits[] = get_circuit_by_id($circuitId);
 			}
 		}		
-		return $app ['twig']->render ( 'circuitslist.html.twig', [
+		return $app ['twig']->render ( 'frontoffice/circuitslist.html.twig', [
+
     			'circuitslist' => $nextcircuits
 		] ) ;
 	}
