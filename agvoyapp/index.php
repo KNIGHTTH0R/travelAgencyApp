@@ -18,6 +18,30 @@ require_once 'agvoymodel.php';
 
 // Routage et actions
 
+// Page d'acceuil
+
+$app->get ( '/',
+	// Affiche tous les circuits organisés prochainement
+	function () use ($app)
+	{
+		$nextcircuits =  array();
+		$allprogs = get_all_programmations ();
+		//print_r($allprogs);
+		$now = new DateTime("now");
+		foreach ($allprogs as $prog) {
+			$datediff=date_diff($prog->getDateDepart(),$now);
+			$datediff->format('%R%m');
+			if ($datediff < 12){
+				$circuitId=$prog->getCircuit()->getId();
+				$nextcircuits[] = get_circuit_by_id($circuitId);
+			}
+		}		
+		return $app ['twig']->render ( 'circuitslist.html.twig', [
+    			'circuitslist' => $nextcircuits
+		] ) ;
+	}
+)->bind ( 'index' );
+
 // circuitlist : Liste tous les circuits
 $app->get ( '/circuit', 
     function () use ($app) 
