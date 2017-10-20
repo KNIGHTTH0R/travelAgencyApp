@@ -11,11 +11,20 @@
 
 	<h2>Détails</h2>
 
-			<p>Description: {{ circuit.description }}</p>
+#			<p>Description: {{ circuit.description }}</p>
 
-			<p>Départ de {{ circuit.villeDepart }} pour {{ circuit.dureeCircuit }} j.
-         de voyage à travers le {{ circuit.paysDepart }}, pour terminer à
+	 		<p>Départ de {{ circuit.villeDepart }} pour {{ circuit.dureeCircuit }} jours
+         de voyage à travers l'{{ circuit.paysDepart }}, pour terminer à
          {{ circuit.villeArrivee }}.</p>
+#Ajout de la liste des étapes d'un circuit
+			<p>List of stages:</p>
+				<ul>
+				{% for etape in circuit.getEtapes() %}
+					<li>
+						<p>Stage in {{ etape.nom }} for {{ etape.duree }} days. </p>
+					</li>
+				{% endfor %}
+				</ul>
 
   {% if circuit.programmations is not empty %}
   <h2>Programmations de ce circuit</h2>
