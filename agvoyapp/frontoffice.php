@@ -26,19 +26,6 @@ $app->get ( '/',
 	}
 )->bind ( 'index' );
 
-// circuitlist : Liste tous les circuits avec ou sans programmation, pour le backend
-$app->get ( '/admin/circuit', 
-    function () use ($app) 
-    {
-    	$circuitslist = get_all_circuits ();
-    	// print_r($circuitslist);
-    	
-    	return $app ['twig']->render ( 'backoffice/circuitslist.html.twig', [
-    			'circuitslist' => $circuitslist
-    	] );
-    }
-)->bind ( 'circuitlist' );
-
 // Liste tous les circuits avec programmation, pour le frontend
 $app->get ( '/circuit', 
     function () use ($app) 

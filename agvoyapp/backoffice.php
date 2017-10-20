@@ -11,7 +11,7 @@ $app->get ( '/admin/circuit',
                         'circuitslist' => $circuitslist
         ] );
     }
-)->bind ( 'circuitlist' );
+)->bind ( 'admincircuitlist' );
 
 // circuitshow : affiche les détails d'un circuit
 $app->get ( '/admin/circuit/{id}', 
