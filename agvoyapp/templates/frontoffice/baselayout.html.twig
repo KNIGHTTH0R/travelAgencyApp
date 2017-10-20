@@ -4,23 +4,43 @@
   <head>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/frontoffice.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Application todos{% endblock %}</title>
-    <nav>
-	<ul>
-		<li>
-			<a href="{{ path('circuitlist') }}">Circuits</a>
-		</li>
-		<li>
-			<a href="{{ path('programmationlist') }}">Programmation</a>
-		</li>
-	</ul>
-    </nav>
   </head>
   <body>
+    <div class="container">
+	<div class="row" id="menu">
+	    <nav>
+		<ul>
+			<div class="col-xs-3">
+				<li>
+					<a href="{{ path('index') }}">Home</a>
+				</li>
+			</div>
+			<div class="col-xs-3">
+				<li>
+					<a href="{{ path('programmationlist') }}">Programmation</a>
+				</li>
+			</div>
+			<div class="col-xs-3">
+				<li>
+					<a href="{{ path('circuitlist') }}">Circuits</a>
+				</li>
+			</div>
+			<div class="col-xs-3">
+				<li>
+					<a href="{{ path('admincircuitlist') }}">Administration</a>
+				</li>
+			</div>
+
+		</ul>
+	    </nav>
+	</div>
     {% block body %}
     {% endblock %} {# body #}
+    </div>
     <script src="/js/bootstrap.min.js"></script>
   </body>
 </html>
