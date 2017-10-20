@@ -19,7 +19,7 @@ $app->get ( '/',
 				$nextcircuits[] = get_circuit_by_id($circuitId);
 			}
 		}		
-		return $app ['twig']->render ( 'frontoffice/circuitslist.html.twig', [
+		return $app ['twig']->render ( 'frontoffice/incomingcircuitslist.html.twig', [
 
     			'circuitslist' => $nextcircuits
 		] ) ;

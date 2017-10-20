@@ -45,6 +45,14 @@ $circuitItalie->addEtape('Pise', 1);
 $circuitItalie->addEtape('Rome', 2);
 $list_of_circuits[] = $circuitItalie;
 
+$circuitDanemark = new Circuit();
+$circuitDanemark->setDescription('Danemark');
+$circuitDanemark->setPaysDepart('Danemark');
+$circuitDanemark->addEtape('Copenhague', 2);
+$circuitDanemark->addEtape('Alborg', 2);
+$circuitDanemark->addEtape('Torshavn', 1);
+$list_of_circuits[] = $circuitDanemark;
+
 //print_r($list_of_circuits);
 
 // Circuits programmés
