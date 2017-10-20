@@ -33,7 +33,7 @@ $app->get ( '/admin/circuit',
     	$circuitslist = get_all_circuits ();
     	// print_r($circuitslist);
     	
-    	return $app ['twig']->render ( 'frontoffice/circuitslist.html.twig', [
+    	return $app ['twig']->render ( 'backoffice/circuitslist.html.twig', [
     			'circuitslist' => $circuitslist
     	] );
     }
