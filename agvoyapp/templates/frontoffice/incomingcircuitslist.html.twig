@@ -5,9 +5,9 @@
 {% block title %}{{ parent() }} - Circuits list{% endblock %}
 
 {% block body %}
-    <h1>Next two weeks circuits</h1>
+    <h1>Circuits à venir !</h1>
     {% if circuitslist is not empty %}
-        <p>Here are all your next circuits:</p>
+        <p>Voici tous les circuits programmés au cours des deux prochaines semaines :</p>
         <ul>
         {# Loop through list and creeate the list of circuit items. #}
         {% for circuit in circuitslist %}
@@ -17,7 +17,7 @@
         {% endfor %}
         </ul>
     {% else %}
-        <p>Sorry, you don't have any circuits programmed for the next two weeks :(</p>
+        <p>Désolé, aucun circuit n'est programmé pour les deux prochaines semaines :((</p>
     {% endif %}
 
 {% endblock %} {# body #}
