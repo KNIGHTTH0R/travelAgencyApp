@@ -8,13 +8,13 @@ $app->get ( '/',
 	{
 		$nextcircuits =  array();
 		$allprogs = get_all_programmations ();
-		//print_r($allprogs);
 		$now = new DateTime("now");
 		foreach ($allprogs as $prog) {
-			$datediff=date_diff($prog->getDateDepart(),$now);
+			$datediff=date_diff($now,$prog->getDateDepart());
+			$datesign = $datediff->format('%R');
 			$daydiff = $datediff->format('%d');
 			$monthdiff = $datediff->format('%m');
-			if ($daydiff < 15 && $monthdiff < 1){
+			if ($daydiff < 15 && $monthdiff < 1 && $datesign === '+'){
 				$circuitId=$prog->getCircuit()->getId();
 				$nextcircuits[] = get_circuit_by_id($circuitId);
 			}

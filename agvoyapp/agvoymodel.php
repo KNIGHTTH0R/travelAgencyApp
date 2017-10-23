@@ -67,10 +67,10 @@ function add_programmation($date, $nb_personnes, $prix, $circuit)
     $list_of_programmations[] = $programmation;
 }
 
-add_programmation('2018-07-10', 10,  850, $circuitAndalousie);
-add_programmation('2017-08-16', 10, 1500, $circuitVietnam);
-add_programmation('2016-05-15', 12,  120, $circuitIdF);
-add_programmation('2017-10-13', 15,  800, $circuitItalie);
+add_programmation('2017-11-07', 10,  850, $circuitAndalousie);
+add_programmation('2017-10-22', 10, 1500, $circuitVietnam);
+add_programmation('2017-10-15', 12,  120, $circuitIdF);
+add_programmation('2017-11-03', 15,  800, $circuitItalie);
 
 // Fonctions utilitaires
 
