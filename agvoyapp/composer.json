@@ -1,7 +1,8 @@
 {
 	"require" : {
 		"silex/silex" : "^2.0",
-		"twig/twig" : "^1.33"
+		"twig/twig" : "^1.33",
+		"components/jquery": "1.9.*"
 	},
 	"autoload" : {
 		"psr-4" : {

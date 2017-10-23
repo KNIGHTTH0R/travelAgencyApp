@@ -5,6 +5,8 @@
 {% block title %}{{ parent() }} - Circuits list{% endblock %}
 
 {% block body %}
+<div class="row">
+<div class="col-xs-12">
     <h1>Circuits à venir !</h1>
     {% if circuitslist is not empty %}
         <p>Voici tous les circuits programmés au cours des deux prochaines semaines :</p>
@@ -19,5 +21,6 @@
     {% else %}
         <p>Désolé, aucun circuit n'est programmé pour les deux prochaines semaines :((</p>
     {% endif %}
-
+</div>
+</div>
 {% endblock %} {# body #}
