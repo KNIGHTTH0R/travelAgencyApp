@@ -8,7 +8,7 @@
 
 {% block title %}{{ parent() }} - Details for circuit {{ id }}{% endblock %}
 
-{% block main %}
+{% block body %}
     
     {# <pre>{{ dump(circuit) }}</pre> #}
     
@@ -69,4 +69,4 @@
     			<p>Désolé : pas encore de dates programmées pour ce circuit.</p>
             {% endif %}
 
-{% endblock %} {# main #}
+{% endblock %} {# body #}
