@@ -10,6 +10,7 @@
         "components/jquery" : "^3.2",
 	"symfony/translation" : "^2.",
 	"doctrine/dbal" : "~2.2",
+	"components/jquery": "1.9.*",
         "symfony/asset": "^3.3"
     },
     "autoload" : {
@@ -17,5 +18,5 @@
 	    "Model\\" : "model"
 	}
     },
-    "name" : "Appli agence de voyage TP6"
+    "name" : "Appli agence de voyage"
 }

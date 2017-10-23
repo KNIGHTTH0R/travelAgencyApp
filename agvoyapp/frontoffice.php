@@ -1,62 +1,73 @@
-<?php
-/**
- * Routage et actions Front office de l'application
+<?php // Routage et actions
 
- * @copyright  2015-2017 Telecom SudParis
- * @license    "MIT/X" License - cf. LICENSE file at project root
- */
+// Page d'acceuil
 
-/**
- * @var \Closure $circuitlist_action
- * 
- * Liste tous les circuits
- */
-$circuitlist_action = function () use ($app) 
-{
-	$circuitslist = get_all_circuits (FALSE);
-	
-	return $app ['twig']->render ( 'frontoffice/circuitslist.html.twig', [
-			'circuitslist' => $circuitslist
-	] );
-};
-$app->get ( '/circuit', $circuitlist_action )
-    ->bind ( 'circuitlist' );
+$app->get ( '/',
+	// Affiche tous les circuits organisés prochainement
+	function () use ($app)
+	{
+		$nextcircuits =  array();
+		$allprogs = get_all_programmations ();
+		//print_r($allprogs);
+		$now = new DateTime("now");
+		foreach ($allprogs as $prog) {
+			$datediff=date_diff($prog->getDateDepart(),$now);
+			$daydiff = $datediff->format('%d');
+			$monthdiff = $datediff->format('%m');
+			if ($daydiff < 15 && $monthdiff < 1){
+				$circuitId=$prog->getCircuit()->getId();
+				$nextcircuits[] = get_circuit_by_id($circuitId);
+			}
+		}		
+		return $app ['twig']->render ( 'frontoffice/incomingcircuitslist.html.twig', [
+
+    			'circuitslist' => $nextcircuits
+		] ) ;
+	}
+)->bind ( 'index' );
+
+// Liste tous les circuits avec programmation, pour le frontend
+$app->get ( '/circuit', 
+    function () use ($app) 
+    {
+	$progslist = get_all_programmations ();
+	foreach ($progslist as $prog) {
+		$circuitslist[] = $prog->getCircuit();
+	}
+    	// print_r($circuitslist);
+    	
+    	return $app ['twig']->render ( 'frontoffice/circuitslist.html.twig', [
+    			'circuitslist' => $circuitslist
+    	] );
+    }
+)->bind ( 'circuitlist' );
 
 // circuitshow : affiche les détails d'un circuit
 $app->get ( '/circuit/{id}', 
-		function ($id) use ($app) 
-		{
-			$circuit = get_circuit_by_id ( $id );
-	
-			return $app ['twig']->render ( 'frontoffice/circuitshow.html.twig', [ 
-					'id' => $id,
-					'circuit' => $circuit 
-				] );
-		}
+	function ($id) use ($app) 
+	{
+		$circuit = get_circuit_by_id ( $id );
+		// print_r($circuit);
+		$programmations = get_programmations_by_circuit_id ( $id );
+		//$circuit ['programmations'] = $programmations;
+
+		return $app ['twig']->render ( 'frontoffice/circuitshow.html.twig', [ 
+				'id' => $id,
+				'circuit' => $circuit 
+			] );
+	}
 )->bind ( 'circuitshow' );
 
 // programmationlist : liste tous les circuits programmés
 $app->get ( '/programmation', 
-		function () use ($app) 
-		{
-			$programmationslist = get_all_programmations ();
-	
-			return $app ['twig']->render ( 'frontoffice/programmationslist.html.twig', [ 
-					'programmationslist' => $programmationslist 
-				] );
-		}
-)->bind ( 'programmationlist' );
+	function () use ($app) 
+	{
+		$programmationslist = get_all_programmations ();
+		// print_r($programmationslist);
 
-// programmationshow : affiche les détails d'une programmation
-$app->get ( '/programmation/{id}',
-		function ($id) use ($app) 
-		{
-			$programmation = get_programmation_by_id ( $id );
-			
-			return $app ['twig']->render ( 'frontoffice/programmationshow.html.twig', [
-					'id' => $id,
-					'programmation' => $programmation
+		return $app ['twig']->render ( 'frontoffice/programmationslist.html.twig', [ 
+				'programmationslist' => $programmationslist 
 			] );
-		}
-)->bind ( 'programmationshow' );
+	}
+)->bind ( 'programmationlist' );
 

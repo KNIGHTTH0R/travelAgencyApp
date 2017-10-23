@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 /**
  * Routage et actions pour le backoffice de l'application
  

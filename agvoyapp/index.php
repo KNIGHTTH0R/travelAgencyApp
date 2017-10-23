@@ -1,10 +1,8 @@
 <?php
 
 /**
- * Point d'entrée de l'application agence de voyages Silex
- * 
- * @copyright  2015-2017 Telecom SudParis
- * @license    "MIT/X" License - cf. LICENSE file at project root
+<<<<<<< HEAD
+ * Application d'exemple Agence de voyages Silex
  */
 
 // Initialisations de l'autoloader et des bibliothèques composer
@@ -21,16 +19,6 @@ $app = require_once 'initapp.php';
 
 // Chargement du gestionnaire de la persistence du modèle dans la base de données
 require_once 'agvoymodel.php';
-
-
-// Gestion de la page d'accueil
-
-$app->get('/', 
-    function () use ($app) 
-    {
-        return $app['twig']->render('home.html.twig');
-    }
-)->bind('home');
 
 // chargement des gestionnaires pour le front office
 require_once 'frontoffice.php';
