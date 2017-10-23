@@ -14,7 +14,7 @@ $app->get ( '/',
 			$datesign = $datediff->format('%R');
 			$daydiff = $datediff->format('%d');
 			$monthdiff = $datediff->format('%m');
-			if ($daydiff < 15 && $monthdiff < 1 && $datesign === '+'){
+			if ($monthdiff < 12 && $datesign === '+'){
 				$circuitId=$prog->getCircuit()->getId();
 				$nextcircuits[] = get_circuit_by_id($circuitId);
 			}
@@ -48,7 +48,7 @@ $app->get ( '/circuit/{id}',
 	{
 		$circuit = get_circuit_by_id ( $id );
 		// print_r($circuit);
-		$programmations = get_programmations_by_circuit_id ( $id );
+		//$programmations = get_programmations_by_circuit_id ( $id );
 		//$circuit ['programmations'] = $programmations;
 
 		return $app ['twig']->render ( 'frontoffice/circuitshow.html.twig', [ 

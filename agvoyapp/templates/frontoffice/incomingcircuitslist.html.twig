@@ -9,7 +9,7 @@
 <div class="col-xs-12">
     <h1>Circuits à venir !</h1>
     {% if circuitslist is not empty %}
-        <p>Voici tous les circuits programmés au cours des deux prochaines semaines :</p>
+        <p>Voici tous les circuits programmés au cours de l'année prochaine :</p>
         <ul>
         {# Loop through list and creeate the list of circuit items. #}
         {% for circuit in circuitslist %}
@@ -19,7 +19,7 @@
         {% endfor %}
         </ul>
     {% else %}
-        <p>Désolé, aucun circuit n'est programmé pour les deux prochaines semaines :((</p>
+        <p>Désolé, aucun circuit n'est programmé pour l'an prochain :(</p>
     {% endif %}
 </div>
 </div>
