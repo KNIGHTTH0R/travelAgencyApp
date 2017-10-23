@@ -1,0 +1,31 @@
+{# templates/frontoffice/circuitslist.html.twig #}
+
+{% extends "/frontoffice/userlayout.html.twig" %}
+
+{% block title %}{{ parent() }} Liste des programmations {% endblock %}
+
+{% block body %}
+<div class="row">
+<div class="col-xs-12">
+    <h1>Bienvenue à la Varecuria</h1>
+	<p>Notre agence de voyage vous propose des centaines de destinations à travers le monde, à un prix des plus conccurentiels !</p>
+	<p> Arpentez les pages de notre site à la recherche de votre bonheur, et prenez part à l'aventure !</p>
+    <h2>Voyages à venir !</h2>
+    {% if progslist is not empty %}
+        <p>Voici tous les voyages programmés au cours de l'année prochaine :</p>
+        <ul>
+        {# Loop through list and create the list of circuit items. #}
+        {% for prog in progslist %}
+            <li>
+          		<p>Voyage de {{ prog.circuit.dureeCircuit }} jours en <a href="{{ path('programmationshow', { 'id' : prog.id }) }}" }}>{{ prog.circuit.description }}</a> à partir du {{ prog.dateDepart|date('d-m-Y') }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Désolé, aucun circuit n'est programmé pour l'an prochain :(</p>
+    {% endif %}
+    <h2>Nous contacter</h2>
+	<p>Pour nous contacter, n'hésitez pas à ouvrir une pull request sur <a href="https://github.com/varecuria/travelAgencyApp">notre GitHub</a> !</p>
+</div>
+</div>
+{% endblock %}

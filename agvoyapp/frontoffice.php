@@ -18,7 +18,7 @@ $app->get ( '/',
 				$nextprogs[] = $prog;
 			}
 		}		
-		return $app ['twig']->render ( 'frontoffice/incomingcircuitslist.html.twig', [
+		return $app ['twig']->render ( 'frontoffice/home.html.twig', [
 
     			'progslist' => $nextprogs
 		] ) ;
@@ -70,3 +70,12 @@ $app->get ( '/programmation',
 	}
 )->bind ( 'programmationlist' );
 
+$app->get ( '/programmation/{id}',
+	function ($id) use ($app)
+	{
+		$prog = get_programmation_by_id($id);
+		return $app ['twig']->render ( 'frontoffice/programmationshow.html.twig', [
+			'programmation' => $prog
+		]);
+	}
+)->bind ( 'programmationshow' );

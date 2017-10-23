@@ -6,20 +6,31 @@
 
 {% block body %}
 
-    <h1>List of programmations</h1>
+    <h1>Liste des programmations</h1>
 
     {% if programmationslist is not empty %}
-        <p>Here are all your programmations:</p>
-        <ul>
-        {# Loop through list and creeate the list of programmation items. #}
-        {% for programmation in programmationslist %}
-            <li>
-          		<a href=" {{ path('programmationshow', { 'id' : programmation.id }) }}">{{ programmation.circuit.description }} le {{ programmation.dateDepart|date('d-m-Y')  }}</a>
-           </li>
-        {% endfor %}
-        </ul>
+	<table class="table">
+     	    <thead>
+     		<tr>
+		<th>Circuit</th>
+     		<th>Date de départ</th>
+     		<th>Nombre de personnes</th>
+     		<th>Prix</th>
+     		</tr>
+     	    </thead>
+     	        {%  for programmation in programmationslist %}
+     			<tr>
+			<td><a href="{{ path('programmationshow', { 'id' : programmation.id })}}">{{ programmation.circuit.description }}</a></td>
+     			<td>{{ programmation.dateDepart|date('d-m-Y')  }}</td>
+     			<td>{{ programmation.nombrePersonnes }}</td>
+     			<td>{{ programmation.prix }} €</td>
+     			</tr>
+     	        {% endfor %}
+     	</table>
+{#    
     {% else %}
-        <p>Sorry, you don't have any programmations yet!</p>
-    {% endif %}    
+        <p>Désolé il n'y a aucun voyage programmé pour le moment :(</p>
+#}    
+    {% endif %}
 
-    {% endblock %} {# body #}
+{% endblock %} {# body #}

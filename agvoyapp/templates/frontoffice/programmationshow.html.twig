@@ -3,14 +3,25 @@
 {% extends "frontoffice/userlayout.html.twig" %}
 
 
-{% block title %}{{ parent() }} - Programmation de {{ programmation.circuit.description }}{% endblock %}
+{% block title %}{{ parent() }} - Voyage en {{ programmation.circuit.description }}{% endblock %}
 
 {% block body %}
-    <h1>Programmation de {{ programmation.circuit.description }}</h1>
+    <h1>Voyage en {{ programmation.circuit.description }}</h1>
+                        <table class="table">
+                                <thead>
+                                        <tr>
+                                        <th>Date de départ</th>
+                                        <th>Nombre de personnes</th>
+                                        <th>Prix</th>
+                                        </tr>
+                                </thead>
+                                        <tr>
+                                                <td>{{ programmation.dateDepart|date('d-m-Y')  }}</td>
+                                                <td>{{ programmation.nombrePersonnes }}</td>
+                                                <td>{{ programmation.prix }} euros</td>
+                                        </tr>
+                        </table>
 
-	<p>{{ programmation.circuit.description }} le {{ programmation.dateDepart|date('d-m-Y')  }}, 
-  	pour {{ programmation.nombrePersonnes }} personnes, à {{ programmation.prix }} euros.</p>
-    
-  	<p><a href="{{ path('circuitshow', { 'id' : programmation.circuit.id }) }}">Circuit details</a></p>
+  	<p>Plus de détails sur le circuit <a href="{{ path('circuitshow', { 'id' : programmation.circuit.id }) }}">ici</a> !</p>
 
 {% endblock %} {# body #}
