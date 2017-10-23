@@ -2,19 +2,19 @@
 
 {% extends "baselayout.html.twig" %}
 
-{% block title %}{{ parent() }} - Circuits list{% endblock %}
+{% block title %}{{ parent() }} Liste des programmations {% endblock %}
 
 {% block body %}
 <div class="row">
 <div class="col-xs-12">
-    <h1>Circuits à venir !</h1>
-    {% if circuitslist is not empty %}
-        <p>Voici tous les circuits programmés au cours de l'année prochaine :</p>
+    <h1>Voyages à venir !</h1>
+    {% if progslist is not empty %}
+        <p>Voici tous les voyages programmés au cours de l'année prochaine :</p>
         <ul>
         {# Loop through list and creeate the list of circuit items. #}
-        {% for circuit in circuitslist %}
+        {% for prog in progslist %}
             <li>
-          		<a href="{{ path('circuitshow', { 'id' : circuit.id }) }}">{{ circuit.description }}</a>
+          		<p>Voyage de {{ prog.circuit.dureeCircuit }} jours en <a href="{{ path('circuitshow', { 'id' : prog.id }) }}" }}>{{ prog.circuit.description }}</a> à partir du {{ prog.dateDepart|date('d-m-Y') }}</p>
             </li>
         {% endfor %}
         </ul>
@@ -23,4 +23,4 @@
     {% endif %}
 </div>
 </div>
-{% endblock %} {# body #}
+{% endblock %}

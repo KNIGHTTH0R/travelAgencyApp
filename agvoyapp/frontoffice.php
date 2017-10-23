@@ -6,7 +6,7 @@ $app->get ( '/',
 	// Affiche tous les circuits organisés prochainement
 	function () use ($app)
 	{
-		$nextcircuits =  array();
+		$nextprogs =  array();
 		$allprogs = get_all_programmations ();
 		$now = new DateTime("now");
 		foreach ($allprogs as $prog) {
@@ -15,13 +15,12 @@ $app->get ( '/',
 			$daydiff = $datediff->format('%d');
 			$monthdiff = $datediff->format('%m');
 			if ($monthdiff < 12 && $datesign === '+'){
-				$circuitId=$prog->getCircuit()->getId();
-				$nextcircuits[] = get_circuit_by_id($circuitId);
+				$nextprogs[] = $prog;
 			}
 		}		
 		return $app ['twig']->render ( 'frontoffice/incomingcircuitslist.html.twig', [
 
-    			'circuitslist' => $nextcircuits
+    			'progslist' => $nextprogs
 		] ) ;
 	}
 )->bind ( 'index' );
