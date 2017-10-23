@@ -3,9 +3,9 @@
 {% extends "baselayout.html.twig" %}
 
 {% block menu %} 
-            <li><a href="{{ path('admin_circuitlist') }}">Administration Circuit</a> </li>
-            <li><a href="#{# path('admin_programmationlist') #}">Administration Programmations</a></li>
-            <li><a href="{{ path('circuitlist') }}">Vue utilisateur</a></li>
+            <li><a href="{{ path('admin_circuitlist') }}">Gestion des circuits</a> </li>
+            <li><a href="#{# path('admin_programmationlist') #}">Gestion des programmations</a></li>
+            <li><a href="{{ path('index') }}">Retour à l'accueil</a></li>
     
 	{# Display messages resulting from redirects after C(R)UD actions #}
     {% for message in app.session.flashbag.get('message') %}
