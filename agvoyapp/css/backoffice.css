@@ -1,0 +1,19 @@
+
+body {
+	padding-top: 70px;
+}
+
+.navbar-default .navbar-nav>li>a {
+	color: #f7f9f9;
+}
+.navbar-default .navbar-brand {
+	color: #f7f9f9;
+}
+
+div#navbar {
+	background-color:#239ea5;
+}
+
+.navbar-header {
+	background-color:#239ea5;
+}

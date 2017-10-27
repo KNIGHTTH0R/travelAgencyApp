@@ -2,6 +2,8 @@
 
 {% extends "baselayout.html.twig" %}
 
+{% block css %}<link rel="stylesheet" href="/css/backoffice.css">{% endblock %}
+
 {% block menu %} 
             <li><a href="{{ path('admin_circuitlist') }}">Gestion des circuits</a> </li>
             <li><a href="{{ path('admin_proglist') }}">Gestion des programmations</a></li>
