@@ -3,3 +3,13 @@ body {
 	padding-top: 70px;
 }
 
+#background {
+	/* background-image: url(https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-567550.jpg); */
+	background-size: cover;
+	background-image: url(/static/background.jpg);
+	background-repeat: no-repeat;
+	background-origin: padding-box;
+	-webkit-background-clip: padding-box;
+}
+
+

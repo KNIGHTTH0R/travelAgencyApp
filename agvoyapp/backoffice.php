@@ -70,27 +70,6 @@ $app->get( '/admin/circuit/{id}', $admin_circuitshow)
 /* 
  * Fonction utilitaire créant un formulaire pour un Circuit 
  */
-function circuitnewget_form($app) 
-{
-    // variante PHP classique "verbeuse"
-    //     $formbuilder = $app['form.factory']->createBuilder(FormType::class);
-    //     $formbuilder->add('description');
-    //     $formbuilder->add('paysDepart');
-    //     $formbuilder->add('villeDepart');
-    //     $formbuilder->add('villeArrivee');
-    //     $formbuilder->add('dureeCircuit');
-    //     $form = $formbuilder->getForm();
-    
-    // On préfère une variante compacte
-    $form = $app['form.factory']->createBuilder(FormType::class)
-    ->add('description')
-    ->add('paysDepart')
-    ->add('villeDepart')
-    ->add('villeArrivee')
-    ->add('dureeCircuit')
-    ->getForm();
-    return $form;
-}
 
 /**
  * @var \Closure $admin_circuitnew_getaction
