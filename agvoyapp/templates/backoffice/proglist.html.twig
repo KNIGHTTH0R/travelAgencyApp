@@ -1,0 +1,23 @@
+{% extends "backoffice/adminlayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Admin Programmations list{% endblock %}
+
+{% block body %}
+
+    <h1>Admin List of programmationss</h1>
+
+    {% if progslist is not empty %}
+        <p>Voici toutes les programmations</p>
+        <ul>
+        {# Loop through list and creeate the list of circuit items. #}
+        {% for prog in progslist %}
+            <li>
+          		<a href="{{ path('admin_progshow', { 'id' : prog.id }) }}">{{ prog.circuit.description }} le {{ prog.dateDepart|date('d-m-Y') }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Désolé, il n'y a encore aucune programmation :(</p>
+    {% endif %}
+   
+{% endblock %} {# body #}

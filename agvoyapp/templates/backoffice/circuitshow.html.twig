@@ -121,6 +121,10 @@
     			<input type="hidden" id="_method" name="_method" value="DELETE" />
     		</form>
     		</p>
+      <form action="{{ path('admin_prognew', { 'circuit_id' : id }) }}" method="GET">
+          <button class="btn btn-default" type="submit">New programmation</button>
+      </form>
+   
     	</div>	<!-- /.col-md-2  -->
     	
     </div> <!-- /.row  -->

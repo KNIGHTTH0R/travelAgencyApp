@@ -1,0 +1,51 @@
+{% extends "backoffice/adminlayout.html.twig" %}
+
+{#
+  {{ dump(prog) }}
+#}
+{% block title %}{{ parent() }} - Details for programmation {{ id }}{% endblock %}
+
+{# Factorise part about circuit programmations for readability #}
+
+
+{# Now the main structure of the page #}
+{% block body %}
+    <h1>Programmation pour l'{{ prog.circuit.description }}</h1>
+
+	{# On the left, the data (10 columns), and on the right buttons (2 columns) #}    
+    <div class="row">
+    	<div class="col-md-10">
+    
+    		<h2>Détails</h2>
+    
+    		<dl class="dl-horizontal">
+    			<dt>Date de départ</dt> <dd>{{ prog.dateDepart|date('d-m-Y') }}</dd>
+    			<dt>Nombre de personnes</dt> <dd>{{ prog.nombrePersonnes }}</dd>
+    			<dt>Prix</dt>	<dd>{{ prog.prix }}€</dd>
+    			<dt>Circuit</dt> <dd>{{ prog.circuit.description }}</dd>
+    		</dl>
+    		
+    	</div>	<!-- /.col-md-10 -->
+    	
+    	{# Columns on the  right #}
+    	<div class="col-md-2">
+    		<h2>Actions :</h2>
+    		<p>
+    		<form action="{{ path('admin_progmodify', { 'id' : id }) }}"
+    			method="GET">
+    			<button type="submit" class="btn btn-warning btn-block">modify programmation</button>
+    		</form>
+    		</p>
+    		<p>
+    		<form action="{{ path('admin_progdelete', { 'id' : id }) }}"
+    			method="POST">
+    			<button type="submit" class="btn btn-danger btn-block">delete programmation</button>
+    			<!-- Hiddent fake DELETE action simulation HTTP DELETE method -->
+    			<input type="hidden" id="_method" name="_method" value="DELETE" />
+    		</form>
+    		</p>
+    	</div>	<!-- /.col-md-2  -->
+    	
+    </div> <!-- /.row  -->
+    
+{% endblock %}{# main #}

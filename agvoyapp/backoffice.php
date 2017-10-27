@@ -134,7 +134,7 @@ $app->get('/admin/circuitnew', $admin_circuitnew_getaction)
             $data['paysDepart'],
             $data['villeDepart'],
             $data['villeArrivee'],
-            $data['dureeCircuit']
+     	    $data['dureeCircuit']
             );
         
         // Make sure message will be displayed after redirect
@@ -339,17 +339,17 @@ $app->delete('/admin/etape/{id}', $admin_etapedelete_action)
  */
 $admin_proglist_action = function () use ($app) 
 {
-    $progslist = get_all_programmations(TRUE);
+    $progslist = get_all_programmations();
     
     return $app ['twig']->render( 'backoffice/proglist.html.twig', [
         'progslist' => $progslist
     ] );
 };
 $app->get( '/admin/programmation', $admin_proglist_action)
-    ->bind( 'admin_circuitlist' );
+    ->bind( 'admin_proglist' );
 
-/**
- * @var \Closure $admin_progshow
+
+ /* @var \Closure $admin_progshow
  * 
  * affiche les détails d'une programmation (backoffice)
  */
@@ -357,20 +357,20 @@ $admin_progshow = function ($id) use ($app)
 {
     $prog = get_programmation_by_id( $id );
     
-    return $app ['twig']->render ( 'backoffice/show.html.twig', [
+    return $app ['twig']->render ( 'backoffice/progshow.html.twig', [
         'id' => $id,
-        'circuit' => $circuit
+        'prog' => $prog
     ] );
 };
-$app->get( '/admin/circuit/{id}', $admin_circuitshow)
-    ->bind ( 'admin_circuitshow' );
+$app->get( '/admin/programmation/{id}', $admin_progshow)
+    ->bind ( 'admin_progshow' );
 
-//---------- Formulaires Circuit
+//---------- Formulaires Programmation
 
 /* 
- * Fonction utilitaire créant un formulaire pour un Circuit 
+ * Fonction utilitaire créant un formulaire pour une Programmation 
  */
-function circuitnewget_form($app) 
+function prognewget_form($app) 
 {
     // variante PHP classique "verbeuse"
     //     $formbuilder = $app['form.factory']->createBuilder(FormType::class);
@@ -383,11 +383,9 @@ function circuitnewget_form($app)
     
     // On préfère une variante compacte
     $form = $app['form.factory']->createBuilder(FormType::class)
-    ->add('description')
-    ->add('paysDepart')
-    ->add('villeDepart')
-    ->add('villeArrivee')
-    ->add('dureeCircuit')
+    ->add('dateDepart')
+    ->add('nombrePersonnes')
+    ->add('prix')
     ->getForm();
     return $form;
 }
@@ -399,29 +397,33 @@ function circuitnewget_form($app)
  * 
  * Voir $admin_circuitnew_postaction pour gestion du POST correspondant
  */
-$admin_circuitnew_getaction = function() use ($app) 
+$admin_prognew_getaction = function($circuit_id) use ($app) 
 {
-    $formulaire = circuitnewget_form($app);
+    $circuit_id = get_circuit_by_id( $circuit_id);
+
+    $formulaire = prognewget_form($app);
     
     $formview = $formulaire->createView();
     
     // display the form
-    return $app['twig']->render('backoffice/circuitnew.html.twig',
+    return $app['twig']->render('backoffice/prognew.html.twig',
         array('formulaire' => $formview)
         );
 };
 // GET
-$app->get('/admin/circuitnew', $admin_circuitnew_getaction)
-    ->bind('admin_circuitnew');
+$app->get('/admin/prognew/{circuit_id}', $admin_prognew_getaction)
+    ->bind('admin_prognew');
 
 /**
  * @var \Closure $admin_circuitnew_postaction
  *
  * Soumission d'un formulaire d'ajout de nouveau circuit (POST)
  */
- $admin_circuitnew_postaction = function(Request $request) use ($app) 
+ $admin_prognew_postaction = function(Request $request, $circuit_id) use ($app) 
  {
-    $form = circuitnewget_form($app);
+    $circuit= get_circuit_by_id( $circuit_id);
+
+    $form = prognewget_form($app);
     
     $form->handleRequest($request);
     
@@ -430,23 +432,23 @@ $app->get('/admin/circuitnew', $admin_circuitnew_getaction)
     {
         $data = $form->getData();
                 
-        add_circuit($data['description'],
-            $data['paysDepart'],
-            $data['villeDepart'],
-            $data['villeArrivee'],
-            $data['dureeCircuit']
+	add_programmation(
+	    $circuit,
+	    $data['dateDepart'],
+            $data['nombrePersonnes'],
+            $data['prix']
             );
         
         // Make sure message will be displayed after redirect
-        $app['session']->getFlashBag()->add('message', 'circuit bien ajouté');
+        $app['session']->getFlashBag()->add('message', 'Programmation bien ajoutée');
         
-        $url = $app["url_generator"]->generate("admin_circuitlist");
+        $url = $app["url_generator"]->generate("admin_proglist");
         return $app->redirect($url);
     }
     // for now, don't manage the case of non-valid data
 };
 // POST
-$app->post('/admin/circuitnew', $admin_circuitnew_postaction);
+$app->post('/admin/prognew/{circuit_id}', $admin_prognew_postaction);
     
 /**
  * @var \Closure $admin_circuitmodify_action
@@ -456,18 +458,16 @@ $app->post('/admin/circuitnew', $admin_circuitnew_postaction);
  * 
  * $id : identifiant du circuit
  */
-$admin_circuitmodify_action = function (Request $request, $id) use ($app) {
+$admin_progmodify_action = function (Request $request, $id) use ($app) {
     
-    $circuit = get_circuit_by_id($id);
+    $prog = get_programmation_by_id($id);
     
     // prefill the form with values of the Circuit
     $form = $app['form.factory']->createBuilder(FormType::class, 
-        $circuit)
-    ->add('description')
-    ->add('paysDepart')
-    ->add('villeDepart')
-    ->add('villeArrivee')
-    ->add('dureeCircuit')
+        $prog)
+    ->add('dateDepart')
+    ->add('nombrePersonnes')
+    ->add('prix')
     ->getForm();
     
     $form->handleRequest($request);
@@ -475,41 +475,41 @@ $admin_circuitmodify_action = function (Request $request, $id) use ($app) {
     // if form was posted
     if ($form->isValid()) {
         
-        save_circuit($circuit);
+        save_programmation($prog);
         
         $app['session']->getFlashBag()
-            ->add('message', 'circuit modifé');
+            ->add('message', 'Programmation modifiée');
         
-        return $app->redirect($app["url_generator"]->generate("admin_circuitshow", 
+        return $app->redirect($app["url_generator"]->generate("admin_progshow", 
             array(
-                'id' => $circuit->getId()
+                'id' => $prog->getId()
             )));
     }
     
     // display the form (GET or failed POST)
-    return $app['twig']->render('backoffice/circuitmodify.html.twig', 
+    return $app['twig']->render('backoffice/progmodify.html.twig', 
         array(
             'formulaire' => $form->createView()
         ));
 };
 // handle both GET and POST
-$app->match('/admin/circuitmodify/{id}', $admin_circuitmodify_action)
-    ->bind('admin_circuitmodify');
+$app->match('/admin/progmodify/{id}', $admin_progmodify_action)
+    ->bind('admin_progmodify');
     
 /**
  * @var \Closure $admin_circuitdelete_action
  * 
  * Gestion de la suppression d'un circuit (DELETE)
  */
-$admin_circuitdelete_action = function ($id) use ($app) {
+$admin_progdelete_action = function ($id) use ($app) {
     
-    remove_circuit_by_id($id);
+    remove_programmation_by_id($id);
     
-    $app['session']->getFlashBag()->add('message', 'circuit suprimé');
+    $app['session']->getFlashBag()->add('message', 'Programmation supprimée');
     
-    return $app->redirect($app["url_generator"]->generate("admin_circuitlist"));
+    return $app->redirect($app["url_generator"]->generate("admin_proglist"));
     
 };
 // DELETE (mais grâce à Request::enableHttpMethodParameterOverride)
-$app->delete('/admin/circuit/{id}', $admin_circuitdelete_action)
-    ->bind('admin_circuitdelete');
+$app->delete('/admin/programmation/{id}', $admin_progdelete_action)
+    ->bind('admin_progdelete');

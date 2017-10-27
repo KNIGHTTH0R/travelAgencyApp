@@ -238,9 +238,8 @@ class Circuit
     	$etape->setNumeroEtape($this->nbEtapes);
         $etape->setCircuit($this);
         $this->etapes[] = $etape;
-        $this->dureeCircuit += $duree;
         
-        return $this;
+        return $etape;
     }
 
     /**
@@ -253,4 +252,52 @@ class Circuit
         return $this->etapes;
     }
 
+    public function removeEtape($etape)
+    {
+        $found = -1;
+        $etape_depart=null;
+        $etape_arrivee=null;
+        
+        foreach($this->etapes as $i => $e) 
+        {
+            // we found the etape to be removed
+            if($e === $etape) 
+            {
+                $found = $i;
+            }
+            else 
+          {
+                if(!isset($etape_depart)) 
+                {
+                    $etape_depart = $e;
+                }
+                $etape_arrivee = $e;
+            }
+            // renumber later etapes
+            if($found >= 0) 
+            {
+                $e->setNumeroEtape($e->getNumeroEtape() - 1);
+            }
+        }
+        if($found >= 0) 
+        {
+            // actually remove its from the list of Etapes of the Circuit
+            unset($this->etapes[$found]);
+            
+            // update calculated attributes
+            $this->nbEtapes--;
+
+            if(isset($etape_depart)) 
+            {
+                $this->setVilleDepart($etape_depart->getVilleEtape());
+                $this->setVilleArrivee($etape_arrivee->getVilleEtape());
+            }
+            else 
+            {
+                $this->setVilleDepart('');
+                $this->setVilleArrivee('');
+            }
+        }
+        return $found;
+    }
 }
